@@ -1,0 +1,647 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/LinearLayout2"
+        android:layout_margin="10dp"
+        android:orientation="horizontal" >
+
+
+        <ScrollView
+            android:id="@+id/main_scroll"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/main_param"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:id="@+id/main_param_list_left"
+                        android:orientation="vertical"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
+                        android:layout_width="0dip">
+
+                        <!--<LinearLayout-->
+                            <!--android:orientation="horizontal"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent">-->
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="连接状态:"-->
+                                <!--android:textSize="18sp" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="未连接"-->
+                                <!--android:textSize="18sp" />-->
+                        <!--</LinearLayout>-->
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/main_param_list_right"
+                        android:orientation="vertical"
+                        android:layout_weight="0.5"
+                        android:layout_height="wrap_content"
+                        android:layout_width="0dip">
+                        <!--<LinearLayout-->
+                            <!--android:orientation="horizontal"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="match_parent">-->
+                            <!--<TextView-->
+                                <!--android:layout_width="wrap_content"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="连接状态:"-->
+                                <!--android:textSize="18sp" />-->
+
+                            <!--<TextView-->
+                                <!--android:layout_width="match_parent"-->
+                                <!--android:layout_height="wrap_content"-->
+                                <!--android:text="未连接"-->
+                                <!--android:textSize="18sp" />-->
+                        <!--</LinearLayout>                        -->
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
+                    <View android:layout_width="fill_parent" android:layout_height="30.0dip" />
+                </LinearLayout>
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.15"
+                        android:text="Map:  "
+                        android:layout_gravity="center"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/map_value"
+                        android:tag="TextviewTag_F"
+                        android:text="0"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.1"
+                        android:layout_gravity="center"
+                        android:textSize="18sp" />
+                    <View android:layout_width="0.0dip" android:layout_height="match_parent" android:layout_weight="0.05" android:layout_gravity="center"/>
+                    <Spinner
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3"
+                        android:entries="@array/map_selection"
+                        android:layout_gravity="center"
+                        android:id="@+id/map_spinner" />
+                    <ProgressBar
+                        android:id="@+id/map_bar"
+                        android:layout_width="0dip"
+                        android:layout_height="18dp"
+                        android:layout_weight="0.1"
+                        android:visibility="invisible"
+                        android:layout_gravity="center" />
+                    <View android:layout_width="0.0dip" android:layout_height="match_parent" android:layout_weight="0.3" android:layout_gravity="center"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
+                    <View android:layout_width="fill_parent" android:layout_height="30.0dip" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/main_user_setting"
+                        android:textSize="18sp" />
+                    <View android:layout_width="20.0dip" android:layout_height="wrap_content" android:layout_gravity="center"/>
+                    <Button
+                        android:text="@string/main_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bt_save_settings"/>
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/setting_bar"
+                        android:visibility="invisible"/>
+                </LinearLayout>
+                <TableLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:stretchColumns="1">
+                    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="4.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:gravity="center_horizontal" android:id="@+id/textView1" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="Map 6\nBoost" android:lines="2" android:layout_weight="4.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:gravity="center_horizontal" android:id="@+id/textView2" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="AFR\nBias" android:lines="2" android:layout_weight="4.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:gravity="center_horizontal" android:id="@+id/textView3" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="Duty\nBias" android:lines="2" android:layout_weight="4.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="1500" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_0" android:id="@+id/user_boost_1500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="4.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_24" android:id="@+id/user_cps_1500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="2000" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_1" android:id="@+id/user_boost_2000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="4.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_25" android:id="@+id/user_cps_2000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="2500" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_2" android:id="@+id/user_boost_2500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_14" android:id="@+id/user_afr_2500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_26" android:id="@+id/user_cps_2500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="3000" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_3" android:id="@+id/user_boost_3000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_15" android:id="@+id/user_afr_3000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_27" android:id="@+id/user_cps_3000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="3500" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_4" android:id="@+id/user_boost_3500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_16" android:id="@+id/user_afr_3500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_28" android:id="@+id/user_cps_3500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="4000" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_5" android:id="@+id/user_boost_4000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_17" android:id="@+id/user_afr_4000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_29" android:id="@+id/user_cps_4000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="4500" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_6" android:id="@+id/user_boost_4500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_18" android:id="@+id/user_afr_4500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_30" android:id="@+id/user_cps_4500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="5000" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_7" android:id="@+id/user_boost_5000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_19" android:id="@+id/user_afr_5000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_31" android:id="@+id/user_cps_5000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="5500" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_8" android:id="@+id/user_boost_5500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_20" android:id="@+id/user_afr_5500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_32" android:id="@+id/user_cps_5500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="6000" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_9" android:id="@+id/user_boost_6000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_21" android:id="@+id/user_afr_6000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_33" android:id="@+id/user_cps_6000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="6500" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_10" android:id="@+id/user_boost_6500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_22" android:id="@+id/user_afr_6500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_34" android:id="@+id/user_cps_6500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="7000" android:layout_weight="2.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_11" android:id="@+id/user_boost_7000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="4.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_35" android:id="@+id/user_cps_7000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Boost Failsafe PSI" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_t" android:id="@+id/user_failsafe_psi" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Default Wastegate Pos" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_s" android:id="@+id/user_default_wastegate" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="PID Gain" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_p" android:id="@+id/user_pid_gain" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Auto Shift Boost Redux" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_r" android:id="@+id/user_shift_redux" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="FF/Wastegate Adaption" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_u" android:id="@+id/user_wastegate_adaption" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Fuel Open Loop" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_+" android:id="@+id/user_fuel_openloop" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Meth Safety Mode (0-3)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_`" android:id="@+id/user_future_use_b" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Meth Trigger Mode (0-3)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_m" android:id="@+id/user_future_use_e" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Max Boost 1st (0 Disables)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_v" android:id="@+id/user_maxboost_first" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Max Boost 2nd (0 Disables)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_x" android:id="@+id/user_maxboost_second" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Max Boost 3rd (0 Disables)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_13" android:id="@+id/user_afr_2000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="40.0dip" android:layout_weight="1.0">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Future Use A" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_n" android:id="@+id/user_future_use_a" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:gravity="center_vertical" android:layout_width="0.0dip" android:layout_height="fill_parent" android:text="Future Use D" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <RelativeLayout android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="4.0">
+                                <EditText android:tag ="EdittextTag_o" android:id="@+id/user_future_use_d" android:focusable="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:ems="10" android:inputType="none" android:imeOptions="flagNoExtractUi" />
+                                <Button android:id="@+id/fudButton" android:background="#00000000" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="fill_parent" android:text="" android:layout_alignLeft="@+id/user_future_use_d" android:layout_alignTop="@+id/user_future_use_d" android:layout_alignRight="@+id/user_future_use_d" android:layout_alignBottom="@+id/user_future_use_d" />
+                            </RelativeLayout>
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="N20 TMAP (0/1)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_12" android:id="@+id/user_afr_1500" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="6-Cyl Timing Logging (0-6)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_a_23" android:id="@+id/user_afr_7000" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:textSize="10.0sp" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="I8A0S = 4, IJE0S = 5" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="4.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
+                            <View android:id="@+id/user_spacer" android:layout_width="fill_parent" android:layout_height="30.0dip" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/main_meth_setting"
+                        android:textSize="18sp" />
+                    <View android:layout_width="20.0dip" android:layout_height="wrap_content" android:layout_gravity="center"/>
+                    <Button
+                        android:text="@string/main_save"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/bt_save_meth"/>
+                    <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/meth_bar"
+                        android:visibility="invisible"/>
+                </LinearLayout>
+                <TableLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:stretchColumns="1">
+                    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+                        <LinearLayout android:gravity="center" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+                            <TextView android:textAppearance="?android:textAppearanceMedium" android:gravity="center" android:id="@+id/textViewMeth" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Water/Meth Injection" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Meth Boost Additive (0-75)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_w" android:id="@+id/meth_boost_additive" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Meth Flow Scaling (0-100)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_@" android:id="@+id/meth_flow_scaling" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Start Meth Flow At (PSI)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_P" android:id="@+id/meth_min_psi" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:gravity="center" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+                            <TextView android:textAppearance="?android:textAppearanceMedium" android:gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="External Trigger" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Enabled (0-1)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_Q" android:id="@+id/meth_enabled" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Min Meth Flow (0-100)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_R" android:id="@+id/meth_min_flow" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Min RPM" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_S" android:id="@+id/meth_min_rpm" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Max RPM" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_T" android:id="@+id/meth_max_rpm" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Min TPS (0-100)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_U" android:id="@+id/meth_min_tps" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Shift Reduction (0-100)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_V" android:id="@+id/meth_shift_reduction" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Min Gear (0-6)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_{" android:id="@+id/meth_min_gear" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Min Advance (0-16)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_|" android:id="@+id/meth_min_advance" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Min AFR (0-16)" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_}" android:id="@+id/meth_min_afr" android:layout_width="0.0dip" android:layout_height="wrap_content" android:ems="10" android:layout_weight="4.0" android:inputType="numberDecimal" android:imeOptions="flagNoExtractUi" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="1.0">
+                            <View android:layout_width="fill_parent" android:layout_height="30.0dip" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableLayout>
+                <TableLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:stretchColumns="1">
+                    <LinearLayout android:gravity="center" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+                        <LinearLayout android:gravity="center" android:layout_width="fill_parent" android:layout_height="40.0dip" android:layout_weight="1.0">
+                            <TextView android:textAppearance="?android:textAppearanceMedium" android:gravity="center" android:id="@+id/textViewRO" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Read Only Values" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="40.0dip" android:weightSum="19.0" android:layout_weight="1.0">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="TMAP Voltage" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_L" android:gravity="center" android:id="@+id/readonly_pressure" android:layout_width="40.0dip" android:layout_height="wrap_content" android:ems="10" android:editable="false" android:layout_weight="4.0" android:inputType="numberDecimal" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="40.0dip" android:weightSum="19.0" android:layout_weight="1.0">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Firmware Version" android:layout_weight="8.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_q" android:gravity="center" android:id="@+id/readonly_firmware" android:layout_width="0.0dip" android:layout_height="40.0dip" android:ems="10" android:editable="false" android:layout_weight="8.0" android:inputType="numberDecimal" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <!--<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">-->
+                            <!--<View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />-->
+                            <!--<TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Interface Version" android:layout_weight="8.0" />-->
+                            <!--<View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />-->
+                            <!--<EditText android:gravity="center" android:id="@+id/readonly_interface" android:layout_width="0.0dip" android:layout_height="40.0dip" android:ems="10" android:editable="false" android:layout_weight="8.0" android:inputType="numberDecimal" />-->
+                            <!--<View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />-->
+                        <!--</LinearLayout>-->
+                        <!--<LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">-->
+                            <!--<View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />-->
+                            <!--<TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Kit Address" android:layout_weight="8.0" />-->
+                            <!--<View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />-->
+                            <!--<EditText android:gravity="center" android:id="@+id/readonly_kit_serial" android:layout_width="0.0dip" android:layout_height="40.0dip" android:ems="10" android:editable="false" android:layout_weight="8.0" android:inputType="numberDecimal" />-->
+                            <!--<View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />-->
+                        <!--</LinearLayout>-->
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="VIN" android:layout_weight="8.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_Z_0" android:gravity="center" android:id="@+id/readonly_vin" android:layout_width="0.0dip" android:layout_height="40.0dip" android:ems="10" android:editable="false" android:layout_weight="8.0" android:inputType="numberDecimal" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Avg Ign Retard" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_z" android:gravity="center" android:id="@+id/readonly_avgign" android:layout_width="0.0dip" android:layout_height="40.0dip" android:ems="10" android:editable="false" android:layout_weight="4.0" android:inputType="numberDecimal" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:id="@+id/textView4" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="Last Safety" android:layout_weight="12.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <EditText android:tag ="EdittextTag_#" android:gravity="center" android:id="@+id/readonly_future_use_f" android:layout_width="0.0dip" android:layout_height="40.0dip" android:ems="10" android:editable="false" android:layout_weight="4.0" android:inputType="numberDecimal" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:weightSum="23.0" android:layout_weight="1.25">
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:textSize="12.0dip" android:id="@+id/textView5" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="1 - Boost over safety\n2 - AFR Lean" android:layout_weight="9.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="3.0" />
+                            <TextView android:textAppearance="?android:textAppearanceSmall" android:textSize="12.0dip" android:id="@+id/textView6" android:layout_width="0.0dip" android:layout_height="wrap_content" android:text="3 - Fuel Pres. Low\n4 - Meth Flow Low" android:layout_weight="9.0" />
+                            <View android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="30.0" />
+                        </LinearLayout>
+                    </LinearLayout>
+                </TableLayout>                
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LinearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/bt_connect"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.3"
+                android:layout_gravity="center"
+                android:text="@string/main_connect"
+                android:textSize="13sp" />
+            <ProgressBar
+                android:id="@+id/bar"
+                android:layout_width="0dip"
+                android:layout_height="32dp"
+                android:layout_weight="0.15"
+                android:layout_gravity="center" />
+            <View android:layout_width="0.0dip" android:layout_height="match_parent" android:layout_weight="0.26" />
+            <Button
+                android:id="@+id/bt_discard_changes"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.25"
+                android:text="@string/main_discard_changes"
+                android:textSize="13sp" />
+            <View android:layout_width="0.0dip" android:layout_height="match_parent" android:layout_weight="0.04" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>
