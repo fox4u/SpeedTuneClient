@@ -78,8 +78,8 @@ public class MainActivity extends Activity {
 
     static{
         mapSupportedBtModule = new HashMap<>();
-        mapSupportedBtModule.put(0x1233, "SpeedTune");
-        mapSupportedBtModule.put(0xFFE0, "BT05");
+        mapSupportedBtModule.put(0x88F8, "SpeedTune");
+        //add more supported bt modules here
     }
 
     private String mDeviceAddress;
@@ -695,7 +695,8 @@ public class MainActivity extends Activity {
             int ret = -1;
             if(iType == 2)
             {
-                ret = (rawData[0] | rawData[1] << 8) & 0xFFFF;
+                ret = ((rawData[0] & 0xFF) | (rawData[1] & 0xFF) << 8) & 0xFFFF;
+//                Log.w(TAG, "getUUID: " + ret);
             }
             return ret;
         }
