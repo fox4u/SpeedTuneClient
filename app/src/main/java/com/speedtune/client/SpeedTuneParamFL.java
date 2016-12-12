@@ -3,6 +3,7 @@ package com.speedtune.client;
 import android.util.Log;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Set;
 
 import static java.lang.Math.max;
@@ -42,8 +43,8 @@ public class SpeedTuneParamFL extends SpeedTuneParam{
                 {
                     String strVal;
                     int i = TAG_A_TMAP_BYTE;
-                    int tmapValue = pRawValue[i];
-                    strVal = String.format("%d", tmapValue);
+                    int tmapValue = pRawValue[i] & 0xFF;
+                    strVal = String.format(Locale.US, "%d", tmapValue);
                     mapDisplayValues.put(i, strVal);
                     currentTMAPVal = tmapValue;
                     double factor = getValueFactor();
@@ -51,15 +52,15 @@ public class SpeedTuneParamFL extends SpeedTuneParam{
                     for(i = 0; i < pRawValue.length; i++)
                     {
                         if(i == TAG_A_TMAP_BYTE) continue;
-                        double dVal = pRawValue[i];
+                        double dVal = pRawValue[i] & 0xFF;
                         if(i <= TAG_A_MAX_USER_BOOST_BYTE || i == TAG_A_USER_MAXBOOST_3RD_BYTE)
                         {
                             dVal = dVal / factor;
-                            strVal = String.format("%.1f", dVal);
+                            strVal = String.format(Locale.US, "%.1f", dVal);
                         }
                         else
                         {
-                            strVal = String.format("%d", (int)dVal);
+                            strVal = String.format(Locale.US, "%d", (int)dVal);
                         }
                         mapDisplayValues.put(i, strVal);
                     }

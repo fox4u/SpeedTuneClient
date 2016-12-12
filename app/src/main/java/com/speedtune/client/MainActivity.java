@@ -74,6 +74,13 @@ public class MainActivity extends Activity {
     protected final String PREF_PLATFORM_TYPE = "pref_platform";
 
     private static final int CMD_INTERVAL = 8;
+    private static final HashMap<Integer, String> mapSupportedBtModule;
+
+    static{
+        mapSupportedBtModule = new HashMap<>();
+        mapSupportedBtModule.put(0x1233, "SpeedTune");
+        mapSupportedBtModule.put(0xFFE0, "BT05");
+    }
 
     private String mDeviceAddress;
 	private boolean result;
@@ -655,7 +662,7 @@ public class MainActivity extends Activity {
 			iType = type;
 			rawData = data;
 
-            Log.w("DEBUG", "Length: " + length + " Type : " + type + " Data : " + ByteArrayToString(data));
+            Log.i(TAG, "Length: " + length + " Type : " + type + " Data : " + ByteArrayToString(data));
         }
 
         // ...
@@ -688,29 +695,31 @@ public class MainActivity extends Activity {
             int ret = -1;
             if(iType == 2)
             {
-                ret = rawData[0] | rawData[1] << 8;
+                ret = (rawData[0] | rawData[1] << 8) & 0xFFFF;
             }
             return ret;
         }
     }
 	private void checkDevice(final BluetoothDevice device, final int rssi, byte[] scanRecord)
 	{
-        Log.w("a", "check device:" + device.getName() + ", " + rssi);
+        Log.w(TAG, "check device:" + device.getName() + ", " + rssi);
 
 		List<AdRecord> records = AdRecord.parseScanRecord(scanRecord);
 		boolean uuid_match = false;
 
+        String supportedBtName = null;
 		for(AdRecord rec:records)
 		{
             int uuid = rec.getUUID();
-            if(uuid == 0x1233)
+
+            if((supportedBtName = mapSupportedBtModule.get(uuid)) != null)
             {
                 uuid_match = true;
                 break;
             }
 		}
 
-        if(device.getName().equals("SpeedTune") && uuid_match)
+        if(uuid_match && device.getName().equals(supportedBtName))
         {
             semBtScan.release();
             mDeviceAddress = device.getAddress();
