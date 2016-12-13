@@ -98,7 +98,7 @@ public class CodesFragment extends Fragment
     public void showAllCodes(ArrayList<String> deviceCodes)
     {
         String strDisplay = "";
-        if (deviceCodes != null)
+        if (deviceCodes != null && !deviceCodes.isEmpty())
         {
             for (String code : deviceCodes)
             {

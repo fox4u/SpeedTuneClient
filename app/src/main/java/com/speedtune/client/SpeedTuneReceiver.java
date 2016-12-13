@@ -54,7 +54,7 @@ public class SpeedTuneReceiver {
     public boolean isAutoParseParam = false;
     public boolean isAutoParseCodes = false;
     public boolean isCodesReadDone = false;
-    public static int nPlatformType = MainActivity.PLATFORM_TYPE_E_SERIES_N54;
+    public int nPlatformType = MainActivity.PLATFORM_TYPE_E_SERIES_N54;
 
     public static SpeedTuneReceiver getInstance(){
         if(mInst == null)
@@ -96,7 +96,7 @@ public class SpeedTuneReceiver {
         }
         else if(isAutoParseCodes)
         {
-            parseCodes(prevBuffLength);
+            isCodesReadDone = parseCodes(prevBuffLength);
         }
 
     }
@@ -260,7 +260,7 @@ public class SpeedTuneReceiver {
     private void getCodesFromBuffer(int codeLength, int dataLength)
     {
         int i;
-        for(i = 0; i < dataLength; i = i + codeLength)
+        for(i = 0; i <= (dataLength - codeLength); i = i + codeLength)
         {
             byte[] rawData = new byte[codeLength];
             System.arraycopy(workingByteArray, i, rawData, 0, codeLength);
@@ -268,10 +268,12 @@ public class SpeedTuneReceiver {
             codesQueue.offer(code);
         }
 
-        if(i > dataLength)
+        if(i != dataLength)
         {
             Log.w(CLASS_TAG, "wrong data received: " + Arrays.toString(workingByteArray));
         }
+
+        workingByteArray = null;
     }
 
     public void dumpParamQueue()

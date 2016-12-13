@@ -1281,6 +1281,7 @@ public class MainActivity extends Activity {
             SpeedTuneReceiver recv = SpeedTuneReceiver.getInstance();
             if(recv.isCodesReadDone)
             {
+                deviceCodes.clear();
                 while (!recv.codesQueue.isEmpty())
                 {
                     SpeedTuneCode codeUpdate = recv.codesQueue.poll();
@@ -1342,6 +1343,7 @@ public class MainActivity extends Activity {
                     threadSleep(400);
                     recv.clearCodesQueue();
                     recv.isAutoParseCodes = true;
+                    recv.nPlatformType = nPlatformType;
                     sendToDevice(read_codes);
                     int counterTimeOut = 0;
                     while(!recv.isCodesReadDone && counterTimeOut < 50)
