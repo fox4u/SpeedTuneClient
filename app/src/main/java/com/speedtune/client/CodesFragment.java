@@ -1,7 +1,9 @@
 package com.speedtune.client;
 
 import android.app.Fragment;
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 public class CodesFragment extends Fragment
 {
     private static final String TAG = "CodesFragment";
+    private static final String CODE_DESC_RESID_PREFIX = "code_type_";
     protected MainActivity act;
     private Button btReadCodes;
     private Button btDelCodes;
@@ -100,9 +103,25 @@ public class CodesFragment extends Fragment
         String strDisplay = "";
         if (deviceCodes != null && !deviceCodes.isEmpty())
         {
+            String packageName = act.getPackageName();
             for (String code : deviceCodes)
             {
-                strDisplay = strDisplay + code + "\r\n";
+                final int id = getResources().getIdentifier(CODE_DESC_RESID_PREFIX + act.getPlatformType() + "_" + code, "string", packageName);
+                String desc = "";
+
+                if(id != 0)
+                {
+                    try
+                    {
+                        String strCheck = getResources().getString(id);
+                        desc = " " + strCheck;
+                    }
+                    catch(Resources.NotFoundException ex)
+                    {
+                        Log.w(TAG, "unable to find description for " + code);
+                    }
+                }
+                strDisplay = strDisplay + code + desc + "\r\n";
             }
         } else
         {
