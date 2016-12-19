@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
@@ -65,6 +67,7 @@ public class MainActivity extends Activity {
     private static final byte[] reset_cmd = {'B'};
     private static final byte[] update_clock_cmd = {'E'};
     private static final byte[] auto_param = {'A'};
+    private static final String uuid_template = "0000%04x-0000-1000-8000-00805f9b34fb";
 
     public static final int PLATFORM_TYPE_E_SERIES_N54 = 0;
     public static final int PLATFORM_TYPE_E_SERIES_N55 = 1;
@@ -75,6 +78,8 @@ public class MainActivity extends Activity {
 
     private static final int CMD_INTERVAL = 8;
     private static final HashMap<Integer, String> mapSupportedBtModule;
+    protected String serv_uuid = "";
+    protected String char_uuid = "";
 
     static{
         mapSupportedBtModule = new HashMap<>();
@@ -87,9 +92,7 @@ public class MainActivity extends Activity {
 	private BluetoothLeService mBluetoothLeService;
 	
     private BluetoothGattCharacteristic mNotifyCharacteristic;
-	
-    private ArrayList<ArrayList<BluetoothGattCharacteristic>> mGattCharacteristics =
-            new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
+
 	// 代码管理服务生命周期。
 	private final ServiceConnection mServiceConnection = new ServiceConnection() {
 
@@ -119,7 +122,7 @@ public class MainActivity extends Activity {
 		}
 	};
 
-    private ArrayList<BluetoothGattCharacteristic> charas;
+//    private ArrayList<BluetoothGattCharacteristic> charas;
     private BluetoothAdapter mBluetoothAdapter;
 
     public HashMap<String, SpeedTuneData> deviceParams;
@@ -544,65 +547,46 @@ public class MainActivity extends Activity {
         }
 
     }
-	
-    // 我们是注定的expandablelistview数据结构
-	//  在UI。
+
     private void displayGattServices(List<BluetoothGattService> gattServices) {
         if (gattServices == null)
         	return;
         String uuid = null;
-        String unknownServiceString = "service_UUID";
-        String unknownCharaString = "characteristic_UUID";
-        ArrayList<HashMap<String, String>> gattServiceData = new ArrayList<HashMap<String, String>>();
-        ArrayList<ArrayList<HashMap<String, String>>> gattCharacteristicData
-                = new ArrayList<ArrayList<HashMap<String, String>>>();
-        mGattCharacteristics = new ArrayList<ArrayList<BluetoothGattCharacteristic>>();
-
+        BluetoothGattCharacteristic characteristic = null;
         // 循环遍历服务
         for (BluetoothGattService gattService : gattServices) {
-            HashMap<String, String> currentServiceData = new HashMap<String, String>();
-            uuid = gattService.getUuid().toString();
-            currentServiceData.put(
-                    "NAME", SampleGattAttributes.lookup(uuid, unknownServiceString));
-            currentServiceData.put("UUID", uuid);
-            gattServiceData.add(currentServiceData);
-
-            ArrayList<HashMap<String, String>> gattCharacteristicGroupData =
-                    new ArrayList<HashMap<String, String>>();
-            List<BluetoothGattCharacteristic> gattCharacteristics =
-                    gattService.getCharacteristics();
-            charas =
-                    new ArrayList<BluetoothGattCharacteristic>();
-
-            // 循环遍历特征
-            for (BluetoothGattCharacteristic gattCharacteristic : gattCharacteristics) {
-                charas.add(gattCharacteristic);
-                HashMap<String, String> currentCharaData = new HashMap<String, String>();
-                uuid = gattCharacteristic.getUuid().toString();
-                currentCharaData.put(
-                        "NAME", SampleGattAttributes.lookup(uuid, unknownCharaString));
-                currentCharaData.put("UUID", uuid);
-                gattCharacteristicGroupData.add(currentCharaData);
+            uuid = gattService.getUuid().toString().toLowerCase(Locale.US);
+            Log.w(TAG, "service uuid : " + uuid);
+            if(uuid.equals(serv_uuid))
+            {
+                characteristic = gattService.getCharacteristic(UUID.fromString(char_uuid));
             }
-            mGattCharacteristics.add(charas);
-            gattCharacteristicData.add(gattCharacteristicGroupData);
         }
-        
-        final BluetoothGattCharacteristic characteristic = charas.get(charas.size()-1);
-        final int charaProp = characteristic.getProperties();
-        if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0) {
-            if (mNotifyCharacteristic != null) {
+
+        if(characteristic != null)
+        {
+            final int charaProp = characteristic.getProperties();
+            if ((charaProp | BluetoothGattCharacteristic.PROPERTY_READ) > 0)
+            {
+                if (mNotifyCharacteristic != null)
+                {
+                    mBluetoothLeService.setCharacteristicNotification(
+                            mNotifyCharacteristic, false);
+                    mNotifyCharacteristic = null;
+                }
+                mBluetoothLeService.readCharacteristic(characteristic);
+
+            }
+            if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0)
+            {
+                mNotifyCharacteristic = characteristic;
                 mBluetoothLeService.setCharacteristicNotification(
-                        mNotifyCharacteristic, false);
-                mNotifyCharacteristic = null;
+                        characteristic, true);
             }
-            mBluetoothLeService.readCharacteristic(characteristic);
-
         }
-        if ((charaProp | BluetoothGattCharacteristic.PROPERTY_NOTIFY) > 0) {
-            mNotifyCharacteristic = characteristic;
-            mBluetoothLeService.setCharacteristicNotification(
-                    characteristic, true);
+        else
+        {
+            Log.e(TAG, "unable to find char_uuid: " + char_uuid);
         }
     }
 
@@ -707,11 +691,12 @@ public class MainActivity extends Activity {
 
 		List<AdRecord> records = AdRecord.parseScanRecord(scanRecord);
 		boolean uuid_match = false;
+        int uuid = 0;
 
         String supportedBtName = null;
 		for(AdRecord rec:records)
 		{
-            int uuid = rec.getUUID();
+            uuid = rec.getUUID();
 
             if((supportedBtName = mapSupportedBtModule.get(uuid)) != null)
             {
@@ -722,6 +707,8 @@ public class MainActivity extends Activity {
 
         if(uuid_match && device.getName().equals(supportedBtName))
         {
+            serv_uuid = String.format(Locale.US, uuid_template, uuid);
+            char_uuid = String.format(Locale.US, uuid_template, uuid + 1);
             semBtScan.release();
             mDeviceAddress = device.getAddress();
             mBluetoothLeService.connect(mDeviceAddress);
