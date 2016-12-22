@@ -32,10 +32,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 import java.util.UUID;
 
 /**
@@ -97,6 +103,11 @@ public class BluetoothLeService extends Service {
     public static final UUID ACC_MEASUREMENT_CHARAC = UUID.fromString("F000AA51-0451-4000-B000-000000000000");
     public static final UUID ACC_MEASUREMENT_CHARAC2 = UUID.fromString("F000AA52-0451-4000-B000-000000000000");
 
+    private static final int DEBUG_BUFF_LENGTH = 2048;
+    private static final String LOG_FILENAME_TEMPLATE = "/Download/SpeedTuneConnLog_%s_%d.txt";
+    private StringBuffer logBuf;
+    public boolean isDebug = false;
+
     // 连接的变化和服务发现。
     @SuppressLint("NewApi")
 	private final BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
@@ -152,20 +163,6 @@ public class BluetoothLeService extends Service {
         	 * 正常型号蓝牙接收
         	 */
            broadcastUpdate(ACTION_DATA_AVAILABLE, characteristic);
-        	/**
-        	 * bolutek ------>>> DM-710-A 
-        	 * 格式UInt8
-        	 */
-            /*byte[] data = characteristic.getValue();
-            //鏁版嵁
-            String str2 = new String(data);
-            Log.e(TAG, "返回读出的值:"+characteristic.getValue().toString());
-            Log.e(TAG, "返回读出的值data:"+Arrays.toString(data));
-            Log.e(TAG, "返回读出的值data2:"+str2);
-            
-            Intent intent = new Intent(ACTION_DATA_AVAILABLE);
-            intent.putExtra(EXTRA_DATA, String.valueOf(str2));
-            sendBroadcast(intent);*/
         }
         public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
         	broadcastUpdate(ACTION_RSSI,rssi+"");
@@ -195,7 +192,8 @@ public class BluetoothLeService extends Service {
         final byte[] data = characteristic.getValue();
         if (data != null && data.length > 0) {
             intent.putExtra(EXTRA_DATA, data);
-            Log.i(TAG, "onCharacteristicRead:" + new String(data));
+//            Log.i(TAG, "onCharacteristicRead:" + new String(data));
+            checkPutLogData(">", data);
         }
 
         sendBroadcast(intent);
@@ -279,13 +277,23 @@ public class BluetoothLeService extends Service {
             Log.e(TAG, "没有找到设备。无法连接。");
             return false;
         }
+
+        if(isDebug)
+        {
+            logBuf = new StringBuffer(DEBUG_BUFF_LENGTH);
+        }
+        else
+        {
+            logBuf = null;
+        }
+
         // 我们要直接连接到设备，所以我们设置自动连接
         // 参数错误。
         mBluetoothGatt = device.connectGatt(this, false, mGattCallback);
         Log.e(TAG, "试图创建一个新的连接。");
         mBluetoothDeviceAddress = address;
         mConnectionState = STATE_CONNECTING;
-        System.out.println("device.getBondState=="+device.getBondState());
+//        System.out.println("device.getBondState=="+device.getBondState());
         return true;
     }
 
@@ -308,6 +316,8 @@ public class BluetoothLeService extends Service {
      *正确释放。
      */
     public void close() {
+        writeLogData();
+
         if (mBluetoothGatt == null) {
             return;
         }
@@ -400,6 +410,8 @@ public class BluetoothLeService extends Service {
             return false;
         }
 
+        checkPutLogData("<", bb);
+
         characteristic.setValue(bb);
 
         return mBluetoothGatt.writeCharacteristic(characteristic);
@@ -457,4 +469,51 @@ public class BluetoothLeService extends Service {
     private void showMessage(String msg) {
 		Log.e(TAG, msg);
 	}
+
+    private void checkPutLogData(String ioStr, byte[] data)
+    {
+        if(logBuf != null)
+        {
+            Long sLong = System.currentTimeMillis() % 10000;
+            String logLine = ioStr + sLong.toString() + ":" + Arrays.toString(data) + "\n";
+            int bufLen = logBuf.length();
+//            Log.i(TAG, "bufLen = " + bufLen);
+            if (bufLen + logLine.length() <= logBuf.capacity())
+            {
+                logBuf.append(logLine);
+            }
+            else
+            {
+                writeLogData();
+            }
+        }
+    }
+
+    private void writeLogData()
+    {
+        if(logBuf != null)
+        {
+            final Long tsLong = System.currentTimeMillis();
+            final StringBuffer sendBuf = logBuf;
+            logBuf = null;
+            new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    Random r = new Random();
+                    int iRand = r.nextInt(1000);
+                    try
+                    {
+                        FileOutputStream fo = new FileOutputStream(Environment.getExternalStorageDirectory() + String.format(Locale.US, LOG_FILENAME_TEMPLATE, tsLong, iRand));
+                        fo.write((sendBuf + "").getBytes());
+                        fo.close();
+                    } catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
+            }).start();
+        }
+    }
 }

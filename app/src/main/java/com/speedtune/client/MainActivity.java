@@ -4,6 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
@@ -137,7 +138,10 @@ public class MainActivity extends Activity {
     private Timer updateClockCmdTimer;
     private int nPlatformType;
     private boolean bAllUserSettingReceived = false;
+    private HashSet<Byte> pendingUserSettingTags;
     private boolean bAllMethSettingReceived = false;
+    private HashSet<Byte> pendingMethSettingTags;
+    private boolean bResumeParamAndClockUpdate = false;
     private Semaphore semBtScan;
 
     private LinkedBlockingQueue<byte[]> getRawDataQueue()
@@ -475,7 +479,15 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
-	@Override
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        MenuItem checkable = menu.findItem(R.id.action_debug_conn);
+        checkable.setChecked(mBluetoothLeService.isDebug);
+        return true;
+    }
+
+    @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
@@ -495,6 +507,9 @@ public class MainActivity extends Activity {
 			}
 
 			break;
+            case R.id.action_debug_conn:
+                mBluetoothLeService.isDebug = !item.isChecked();
+                item.setChecked(mBluetoothLeService.isDebug);
 		default:
 			break;
 		}
@@ -873,8 +888,50 @@ public class MainActivity extends Activity {
         return;
     }
 
+    private void setPendingUserSettingTags()
+    {
+        pendingUserSettingTags = new HashSet<>();
+        pendingUserSettingTags.add((byte) 'a');
+        pendingUserSettingTags.add((byte) 'L');
+        pendingUserSettingTags.add((byte) 'q');
+        pendingUserSettingTags.add((byte) 'o');
+        pendingUserSettingTags.add((byte) '+');
+        pendingUserSettingTags.add((byte) 'p');
+        pendingUserSettingTags.add((byte) 'r');
+        pendingUserSettingTags.add((byte) 'v');
+        pendingUserSettingTags.add((byte) 'n');
+        pendingUserSettingTags.add((byte) 's');
+        pendingUserSettingTags.add((byte) 't');
+        pendingUserSettingTags.add((byte) 'u');
+        pendingUserSettingTags.add((byte) 'x');
+        pendingUserSettingTags.add((byte) 'z');
+        pendingUserSettingTags.add((byte) '#');
+        pendingUserSettingTags.add((byte) '`');
+        pendingUserSettingTags.add((byte) 'm');
+    }
+
+    private void setPendingMethSettingTags()
+    {
+        pendingMethSettingTags = new HashSet<>();
+        pendingMethSettingTags.add((byte)'P');
+        pendingMethSettingTags.add((byte)'Q');
+        pendingMethSettingTags.add((byte)'R');
+        pendingMethSettingTags.add((byte)'S');
+        pendingMethSettingTags.add((byte)'T');
+        pendingMethSettingTags.add((byte)'U');
+        pendingMethSettingTags.add((byte)'w');
+        pendingMethSettingTags.add((byte)'@');
+        pendingMethSettingTags.add((byte)'V');
+        pendingMethSettingTags.add((byte)'{');
+        pendingMethSettingTags.add((byte)'}');
+        pendingMethSettingTags.add((byte)'|');
+
+    }
+
     private void connectDevice()
     {
+        setPendingUserSettingTags();
+        setPendingMethSettingTags();
         getCommandHandler().addCommand(new Runnable() {
             @Override
             public void run() {
@@ -949,12 +1006,13 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void setUpdateClockEnable(final boolean enable)
+    private void resumeParamAndClockUpdate()
     {
         getCommandHandler().addCommand(new Runnable() {
             @Override
             public void run() {
-                setUpdateClockEnableOnCommandThread(enable);
+                sendToDevice(auto_param);
+                setUpdateClockEnableOnCommandThread(true);
             }
         });
     }
@@ -982,6 +1040,17 @@ public class MainActivity extends Activity {
             updateClockCmdTimer = null;
         }
     }
+
+    private void setUpdateClockEnable(final boolean enable)
+    {
+        getCommandHandler().addCommand(new Runnable() {
+            @Override
+            public void run() {
+                setUpdateClockEnableOnCommandThread(enable);
+            }
+        });
+    }
+
     private void sendToDevice(byte[] data)
     {
         if(mBluetoothLeService != null && data != null)
@@ -1052,14 +1121,44 @@ public class MainActivity extends Activity {
                     heartBeatTimeStamp = System.currentTimeMillis()/1000;
                 }
 
-                if(paramUpdate.tag == 'm')
+                if(pendingUserSettingTags != null)
                 {
-                    bAllUserSettingReceived = true;
+                    if (pendingUserSettingTags.contains(paramUpdate.tag))
+                    {
+                        pendingUserSettingTags.remove(paramUpdate.tag);
+
+                        if(pendingUserSettingTags.isEmpty())
+                        {
+                            pendingUserSettingTags = null;
+                            bAllUserSettingReceived = true;
+
+                            if(bResumeParamAndClockUpdate)
+                            {
+                                bResumeParamAndClockUpdate = false;
+                                resumeParamAndClockUpdate();
+                            }
+                        }
+                    }
                 }
 
-                if(paramUpdate.tag == '|')
+                if(pendingMethSettingTags != null)
                 {
-                    bAllMethSettingReceived = true;
+                    if (pendingMethSettingTags.contains(paramUpdate.tag))
+                    {
+                        pendingMethSettingTags.remove(paramUpdate.tag);
+
+                        if(pendingMethSettingTags.isEmpty())
+                        {
+                            pendingMethSettingTags = null;
+                            bAllMethSettingReceived = true;
+
+                            if(bResumeParamAndClockUpdate)
+                            {
+                                bResumeParamAndClockUpdate = false;
+                                resumeParamAndClockUpdate();
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -1136,6 +1235,9 @@ public class MainActivity extends Activity {
                             {
                                 MainFragment frag = getMainFragment();
                                 if (frag != null) frag.setSaveMethEnabled(false);
+                                setPendingMethSettingTags();
+                                bAllMethSettingReceived = false;
+                                bResumeParamAndClockUpdate = true;
                             }
                         });
                         setUpdateClockEnableOnCommandThread(false);
@@ -1200,6 +1302,9 @@ public class MainActivity extends Activity {
                             {
                                 MainFragment frag = getMainFragment();
                                 if (frag != null) frag.setSaveSettingsEnabled(false);
+                                setPendingUserSettingTags();
+                                bAllUserSettingReceived = false;
+                                bResumeParamAndClockUpdate = true;
                             }
                         });
                         setUpdateClockEnableOnCommandThread(false);
